@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, "Segoe UI", Ubuntu;
+}
+
+h1 {
+    font-size: 72px;
+}
+
+p {
+    line-height: 24px;
+    color: #666;
+}
+
+.button {
+    height: 40px;
+    border-radius: 20px;
+    padding: 0 60px;
+    border: none;
+    background-color: #ff6a9f;
+    color: #fff;
+    text-decoration: none;
+}
+
+.block { display: block }
+
+/*----- LAYOUT -----*/
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inline-flex { display: inline-flex }
+
+.center { justify-content: center; }
+
+.align-center { align-items: center; }
+
+.col {
+    margin-right: 20px;
+    box-sizing: border-box;
+}
+
+.col:last-child { margin-right: 0; }
+
+.one { width: 70px; }
+.two { width: 160px; }
+.three { width: 250px; }
+.four { width: 340px; }
+.five { width: 430px; }
+.six { width: 520px; }
+.seven { width: 610px; }
+.eight { width: 700px; }
+.nine { width: 790px; }
+.ten { width: 880px; }
+.eleven { width: 970px; }
+.twelve { width: 1060px; }
+.h-one { height: 70px; }
+.h-two { height: 160px; }
+.h-three { height: 250px; }
+.h-four { height: 340px; }
+
+.m-btm-sm { margin-bottom: 10px; }
+.m-btm-md { margin-bottom: 20px; }
+.m-btm-lg { margin-bottom: 60px; }

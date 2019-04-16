@@ -1,0 +1,44 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloudy</title>
+    <script src="/javascripts/adal.js"></script>
+    <script src="/javascripts/index.js"></script>
+</head>
+
+<body>
+<h4 id="WelcomeMessage"></h4>
+<button id="SignIn" onclick="signIn()">Sign In</button>
+<br/><br/>
+<pre id="json"></pre>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Minimal sample using ADAL.JS</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="app.css">
+        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.17/js/adal.min.js"></script>
+        <script src="/javascripts/index.js"></script>
+    </head>
+    <body>
+        <div class="flex center">
+            <div class="six">
+                <h1>
+                    Code like a kid.
+                </h1>
+                <p class="m-btm-lg">
+                    Kids don’t manage servers or databases and neither should you.
+                </p>
+                <div class="flex center">
+                    <a href="#" class="button inline-flex align-center center" onclick="authContext.login(); return false;">Start</a>
+                </div>
+                <a href="#" onclick="authContext.logOut(); return false;">Log out</a>
+                <p id="username"></p>
+                <pre id="api_response"></pre>
+            </div>
+        </div>
+    </body>
+</html>

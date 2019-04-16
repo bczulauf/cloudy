@@ -1,0 +1,24 @@
+{
+  "name": "cloudy",
+  "version": "1.0.0",
+  "description": "Firebase for Azure",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bczulauf/cloudy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bczulauf/cloudy/issues"
+  },
+  "homepage": "https://github.com/bczulauf/cloudy#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7"
+  }
+}
