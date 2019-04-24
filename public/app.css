@@ -2,6 +2,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: system-ui, "Segoe UI", Ubuntu;
+    font-size: 15px;
+    color: #444;
 }
 
 h1 {
@@ -9,21 +11,143 @@ h1 {
 }
 
 p {
-    line-height: 24px;
+    line-height: 28px;
     color: #666;
 }
 
-.button {
-    height: 40px;
-    border-radius: 20px;
-    padding: 0 60px;
-    border: none;
-    background-color: #ff6a9f;
-    color: #fff;
+ul {
+    padding: 0;
+}
+
+a {
     text-decoration: none;
 }
 
+button, input {
+    font-family: system-ui, "Segoe UI", Ubuntu;
+    font-size: 15px;
+}
+
+.button {
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #018DE6;
+    color: #018DE6;
+    text-decoration: none;
+}
+
+.input {
+    height: 40px;
+    border-radius: 4px;
+    display: block;
+    border: 1px solid #ddd;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .block { display: block }
+
+#login-button { display: none; }
+#subscription { display: none; }
+#user { display: none; }
+
+.header {
+    padding: 0 20px;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.header a {
+    color: #444;
+}
+
+.logo {
+    font-weight: 600;
+}
+
+.breadcrumb {
+    padding: 0 20px;
+    height: 40px;
+}
+
+.breadcrumb a {
+    text-transform: capitalize;
+}
+
+.slash {
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}
+
+.nav a {
+    color: #444;
+}
+
+.nav li {
+    margin-bottom: 10px;
+}
+
+.container { margin: 0 20px; }
+
+.list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.list li {
+    margin-bottom: 10px;
+    display: block;
+    border: 1px solid #ddd;
+    width: 160px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.list li a {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    text-transform: capitalize;
+    color: #444;
+}
+
+.breadcrumb a {
+    color: #888;
+}
+
+.right-side {
+    position: relative;
+}
+
+.popup {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+#project-popup {
+    display: none;
+}
+
+label {
+    font-size: 15px;
+    display: block;
+}
+
+#close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
 /*----- LAYOUT -----*/
 .flex {
@@ -36,6 +160,10 @@ p {
 .center { justify-content: center; }
 
 .align-center { align-items: center; }
+
+.float-right {
+    margin-left: auto;
+}
 
 .col {
     margin-right: 20px;
@@ -64,3 +192,7 @@ p {
 .m-btm-sm { margin-bottom: 10px; }
 .m-btm-md { margin-bottom: 20px; }
 .m-btm-lg { margin-bottom: 60px; }
+.m-left-sm { margin-left: 10px; }
+.m-left-md { margin-left: 20px; }
+.m-right-sm { margin-right: 10px; }
+.m-right-md { margin-right: 20px; }

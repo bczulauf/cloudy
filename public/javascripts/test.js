@@ -117,3 +117,25 @@ function createWebsite() {
 //PUT https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}?api-version=2016-08-01
 
 }
+
+    // // Attempts to get token silently
+    // authContext.acquireToken('https://management.azure.com/',
+    //     function (error, token) {
+    //         if (error || !token) {
+    //             // If error, attemps to get token thru popup.
+    //             authContext.acquireTokenPopup('https://management.azure.com/', null, null,  function (errorDesc, token, error) {
+    //                 // Handle ADAL Error
+    //                 if (error || !token) {
+    //                     console.log('ADAL Error Occurred: ' + error);
+    //                     return;
+    //                 }
+
+    //                 getApps(token);
+    //             });
+    //         }
+    //         else {
+    //             // Use the access token
+    //             getApps(token);
+    //         }
+    //     }
+    // );

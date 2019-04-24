@@ -1,74 +1,29 @@
-// Set up ADAL
-var authContext = new AuthenticationContext({
-    clientId: "dec268a7-45b7-4ed2-ba93-ba6675b34911",
+// Configures ADAL.
+const authContext = new AuthenticationContext({
+    clientId: '9f5a2669-7885-43d3-b16d-6f161070e490',
+    resource: 'https://management.azure.com/',
     popUp: true,
-    callback : authenticateApp
+    redirectUri: 'http://localhost:30662/adal.html',
+    callback : loginCallback
 });
 
-function getSubscriptions(access_token) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://management.azure.com/subscriptions?api-version=2016-06-01', true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-    xhr.send();
-
-    return new Promise(function(resolve, reject) {
-        xhr.onreadystatechange = function () {
-            // Only run if the request is complete.
-            if (xhr.readyState !== 4) return;
-
-            if (xhr.status === 200) {
-                resolve(JSON.parse(xhr.responseText));
-            } else {
-                // TODO: Do something with the error (or non-200 responses)
-                reject('ERROR:\n\n' + xhr.responseText);
-            }
-        };
-    });
-}
-
-function createResourceGroup(access_token, subscriptionId, resourceGroupName) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('PUT', `https://management.azure.com/subscriptions/${subscriptionId}/resourcegroups/${resourceGroupName}?api-version=2018-05-01`, true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.send(JSON.stringify({location: 'eastus'}));
-
-    return new Promise(function(resolve, reject) {
-        xhr.onreadystatechange = function () {
-            // Only run if the request is complete.
-            if (xhr.readyState !== 4) return;
-
-            if (xhr.status === 200) {
-                resolve(JSON.parse(xhr.responseText));
-            } else {
-                // TODO: Do something with the error (or non-200 responses)
-                reject('ERROR:\n\n' + xhr.responseText);
-            }
-        };
-    });
-}
-
-function createHostingPlan(access_token, subscriptionId, resourceGroupName, planName) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('PUT', `https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.Web/serverfarms/${planName}?api-version=2016-09-01`, true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.send(JSON.stringify({location: 'eastus'}));
-
-    return new Promise(function(resolve, reject) {
-        xhr.onreadystatechange = function () {
-            // Only run if the request is complete.
-            if (xhr.readyState !== 4) return;
-
-            if (xhr.status === 200) {
-                resolve(JSON.parse(xhr.responseText));
-            } else {
-                // TODO: Do something with the error (or non-200 responses)
-                reject('ERROR:\n\n' + xhr.responseText);
-            }
-        };
-    });
-}
+const router = new Router(
+    {
+        home: new Layout (
+            new HomePage()
+        ),
+        "projects/(.*)": new Layout (
+            new Header(),
+            new DatabasePage()
+        ),
+        projects: new Layout (
+            new Header(),
+            new ProjectsPage()
+        )
+    },
+    document.getElementById('main')
+);
+router.listen();
 
 function createWebsite() {
 //PUT https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}?api-version=2016-08-01
@@ -97,23 +52,53 @@ function createApp(access_token) {
         })
 }
 
-function authenticateApp(errorDesc, token, error, tokenType) { 
-    // Get an access token to the Azure Resource Manager API
-    authContext.acquireToken(
-        'https://management.azure.com/',
-        function (error, token) {
-            if (error || !token) {
-                // TODO: Handle error obtaining access token
-                console.log(error);
+function selectSubscription(response) {
+    var subscriptionsElement = document.getElementById('main')
+    var subscriptions = response && response.value;
 
-                authContext.acquireTokenPopup('https://management.azure.com/', null, null,  function (errorDesc, token, error) {
-                    createApp(token);
-                });
-            }
-            else {
-                // Use the access token
-                createApp(token);
-            }
+    return new Promise(function(resolve, reject) {
+        if (!subscriptions) {
+            // Prompt user to add a subscription
+            reject('User needs to create a subscription');
+        } else if (subscriptions.length === 1) {
+            // Load resource groups
+            resolve(subscriptions[0]);
+        } else {
+            // Let user choose a subscription and then load resource groups
+            document.getElementById('api_response').innerHTML = response.value.map((subscription) => `<input type="radio" name="subscription" id="${subscription.subscriptionId}" value="${subscription.subscriptionId}"><label for="${subscription.subscriptionId}">${subscription.subscriptionId}</label>`).join("");
+
+            // TODO: set up listener for when user selects subscription
         }
-    );
+    })
+}
+
+function getProjects(token) {
+    getSubscriptions(token)
+    .then((response) => selectSubscription(response))
+    .then((subscription) => {
+        document.getElementById('subscription-name').textContent = subscription.displayName;
+        document.getElementById('subscription').style.display = 'flex';
+        localData["subscriptionId"] = subscription.subscriptionId;
+
+        return subscription.subscriptionId;
+    })
+    .then((subscriptionId) => getResourceGroups(token, subscriptionId))
+    .then((response) => {
+        // Lists resource groups and adds create button.
+        var formElement = document.createElement('form');
+        formElement.innerHTML = `<label>Project name</label><input type='text' class='input m-btm-md' name='resourceGroupName' /><button type='submit' class='button'>Add Project</button>`;
+        document.getElementById('main').appendChild(formElement);
+
+    })
+    .catch((error)=> {
+        console.log(error)
+    });
+}
+
+function loginCallback(error, token, msg) {
+    if (error) {
+        console.log(error);
+    } else {
+        router.navigate('projects');
+    }
 }
