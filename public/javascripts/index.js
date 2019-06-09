@@ -10,7 +10,8 @@ const authContext = new AuthenticationContext({
 const router = new Router(
     {
         home: new Layout (
-            new HomePage()
+            new HomePage(),
+            new Footer()
         ),
         "projects/(.*)": new Layout (
             new Header(),
@@ -86,7 +87,7 @@ function getProjects(token) {
     .then((response) => {
         // Lists resource groups and adds create button.
         var formElement = document.createElement('form');
-        formElement.innerHTML = `<label>Project name</label><input type='text' class='input m-btm-md' name='resourceGroupName' /><button type='submit' class='button'>Add Project</button>`;
+        formElement.innerHTML = `<label>Project name</label><input type='text' class='input margin-bottom-20' name='resourceGroupName' /><button type='submit' class='button'>Add Project</button>`;
         document.getElementById('main').appendChild(formElement);
 
     })

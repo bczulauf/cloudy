@@ -12,7 +12,7 @@ class Header {
 
         return this.html = `
             <div class="flex header align-center">
-                <a href="#" class="logo">Code Like A Kid</a>
+                <a href="#" class="logo">Lavabase</a>
                 <div id="user" class="float-right flex">
                     <div class="icon m-right-sm">
                         <img src="images/user.png" />

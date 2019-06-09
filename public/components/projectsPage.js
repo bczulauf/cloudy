@@ -37,7 +37,7 @@ class ProjectsPage {
                         <div class="popup" id="project-popup">
                             <img src="images/cross.png" id="close-popup" />
                             <form id="create-resource-form">
-                                <label class="m-btm-sm">Enter Project Name</label>
+                                <label class="margin-bottom-10">Enter Project Name</label>
                                 <input type="text" name="resourceGroupName" class="input m-btm-sm" />
                                 <button class="button">Create</button>
                             </div>

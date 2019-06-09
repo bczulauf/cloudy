@@ -3,6 +3,7 @@ class DatabasePage {
 
     load(options) {
         const token = this.token = authContext.getCachedToken('https://management.azure.com/');
+        this.resouceGroupName = options.params[1];
 
         return getSubscriptions(token)
         .then((response) => {
@@ -45,7 +46,9 @@ class DatabasePage {
 
     postShow() {
         document.getElementById('add-database').addEventListener('click', (evt) => {
-            createDatabaseAccount(this.token, ).then((response) => {});
+            createDatabaseAccount(this.token, this.subscriptionId, this.resouceGroupName, this.resouceGroupName).then((response) => {
+                console.log(response);
+            });
         });
     }
 }
